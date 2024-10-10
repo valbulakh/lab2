@@ -1,23 +1,25 @@
 #ifndef GENERATOR_H
 #define GENERATOR_H
-#include <iostream>
 
-//struct Params{
-//    duration = 4; // c
-//    fs = 48000; // Hz
-//    f = 440; // Hz
-//    snr = 6; // dB
-//}
+#include <vector>
+#include <cstdint>
 
-class Generator
-{
+// Структура параметров генерации
+struct Params {
+    double duration = 4.0;  // Длительность сигнала в секундах
+    int fs = 48000;         // Частота дискретизации (Гц)
+    double f = 440.0;       // Частота сигнала (Гц) - Нота Ля
+    double snr = 6.0;       // Отношение сигнал/шум (дБ)
+};
+
+// Класс генерации сигнала
+class Generator {
 public:
-    Generator(){std::cout<<"\nmmmmmmmmmm\n";};
-    void generate();
-    ~Generator(){};
+    Generator(); // Конструктор по умолчанию
+    Generator(const Params& params); // Конструктор с параметрами
+    std::vector<int16_t> genSin();   // Метод генерации синусоиды
 private:
-    void genSin();
-    void genNoise();
+    Params params;  // Параметры генерации
 };
 
 #endif // GENERATOR_H
